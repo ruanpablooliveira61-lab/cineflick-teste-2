@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineFlick - O Melhor do Entretenimento</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Biblioteca de Animação ScrollReveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <style>
+        /* CONFIGURAÇÕES GERAIS & SMOOTH SCROLL */
+        html {
+            scroll-behavior: smooth; /* Rolagem Suave Nativa */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b0c10;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Cores Temáticas do CineFlick (Estilo Cinema/Premium) */
+        :root {
+            --primary: #ff003c; /* Vermelho Elétrico */
+            --primary-glow: rgba(255, 0, 60, 0.6);
+            --bg-card: #1f2833;
+            --accent: #45f3ff; /* Azul Neon para detalhes */
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ANIMAÇÕES GERAIS (Botão Pulsante) */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 var(--primary-glow); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 0, 60, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 0, 60, 0); }
+        }
+
+        /* 1. HERO SECTION */
+        .hero {
+            padding: 100px 0 60px 0;
+            text-align: center;
+            background: radial-gradient(circle at top, #1a0f1a 0%, #0b0c10 70%);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #c5a880;
+            max-width: 800px;
+            margin: 0 auto 40px auto;
+            line-height: 1.6;
+            color: #c5c6c7;
+        }
+
+        /* Mockup / Vídeo Fake */
+        .video-container {
+            width: 100%;
+            max-width: 750px;
+            margin: 0 auto 40px auto;
+            border: 3px solid #1f2833;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #000;
+            position: relative;
+            aspect-ratio: 16/9;
+        }
+
+        .video-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            color: var(--primary);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .play-overlay:hover {
+            transform: translate(-50%, -50%) scale(1.1);
+            color: #ffffff;
+        }
+
+        /* BOTÃO CTA PRINCIPAL */
+        .cta-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-subtext {
+            display: block;
+            font-size: 0.9rem;
+            color: #86c232;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* 2. SEÇÃO QUEBRA DE OBJEÇÃO */
+        .pain-section {
+            padding: 80px 0;
+            background-color: #12141c;
+            text-align: center;
+            border-top: 1px solid #1f2833;
+            border-bottom: 1px solid #1f2833;
+        }
+
+        .pain-section h2 {
+            font-size: 2.2rem;
+            color: #ff3333;
+            margin-bottom: 20px;
+        }
+
+        .pain-section p {
+            font-size: 1.1rem;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.7;
+            color: #c5c6c7;
+        }
+
+        /* 3. BENEFÍCIOS GRID */
+        .benefits {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.3rem;
+            margin-bottom: 50px;
+            font-weight: 800;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-bottom: 4px solid var(--primary);
+        }
+
+        .card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #a9b7c6;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* 4. SEÇÃO COMO FUNCIONA */
+        .how-it-works {
+            padding: 80px 0;
+            background: #12141c;
+            text-align: center;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .step {
+            position: relative;
+            padding: 20px;
+        }
+
+        .step-num {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: rgba(255, 0, 60, 0.2);
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 5. OFERTA E PREÇO */
+        .pricing {
+            padding: 90px 0;
+            text-align: center;
+            background: radial-gradient(circle, #24141e 0%, #0b0c10 100%);
+        }
+
+        .price-box {
+            background: #12141c;
+            border: 2px solid var(--primary);
+            border-radius: 20px;
+            padding: 50px 30px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .new-price-sub {
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .price-huge {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin: 15px 0;
+        }
+
+        .price-huge span {
+            color: var(--primary);
+        }
+
+        /* 6. GARANTIA */
+        .guarantee {
+            padding: 60px 0;
+            background: #12141c;
+            text-align: center;
+            border-top: 1px solid #1f2833;
+        }
+
+        .guarantee-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .guarantee-box i {
+            font-size: 5rem;
+            color: #ffcc00;
+        }
+
+        /* 7. FAQ (PERGUNTAS FREQUENTES) */
+        .faq {
+            padding: 80px 0;
+        }
+
+        .faq-item {
+            background: var(--bg-card);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .faq-question {
+            padding: 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            color: #a9b7c6;
+            background-color: #1a212a;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 20px;
+        }
+
+        .faq-item i {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active i {
+            transform: rotate(180deg);
+        }
+
+        /* WHATSAPP FLUTUANTE */
+        .whatsapp-fixed {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+            z-index: 9999;
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-fixed:hover {
+            transform: scale(1.1);
+        }
+
+        /* RESPONSIVIDADE */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+            .price-huge { font-size: 2.5rem; }
+            .guarantee-box { flex-direction: column; text-align: center; }
+            .cta-btn { width: 100%; font-size: 1.1rem; padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- WHATSAPP BOTÃO FLUTUANTE -->
+    <!-- Troque o número 5500999999999 pelo seu número de suporte do WhatsApp -->
+    <a href="https://wa.me/5500999999999?text=Ol%C3%A1%21+Gostaria+de+tirar+uma+d%C3%BAvida+sobre+o+CineFlick" class="whatsapp-fixed" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- 1. HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="logo">CineFlick</div>
+            <h1>Chega de pagar caro em mil plataformas.<br><span>Todos os Streamings em um só lugar.</span></h1>
+            <p>Assista aos lançamentos do cinema, séries do momento e futebol ao vivo direto na sua TV ou celular. Sem travamentos, sem mensalidades abusivas e com qualidade Ultra HD.</p>
+            
+            <!-- Vídeo de Demonstração Interativo / Imagem -->
+            <div class="video-container">
+                <img src="https://images.unsplash.com/photo-1593789198777-f29bc259780e?q=80&w=1000&auto=format&fit=crop" alt="Interface CineFlick">
+                <div class="play-overlay">
+                    <i class="fas fa-play-circle"></i>
+                </div>
+            </div>
+
+            <!-- Botão com Rolagem Suave para a seção de Preço -->
+            <a href="#planos" class="cta-btn">QUERO LIBERAR MEU ACESSO AGORA</a>
+            <span class="cta-subtext"><i class="fas fa-bolt"></i> Liberação imediata após o pagamento</span>
+        </div>
+    </section>
+
+    <!-- 2. QUEBRA DE OBJEÇÃO -->
+    <section class="pain-section">
+        <div class="container">
+            <h2>🛑 A sua conta de streamings está pesando no bolso?</h2>
+            <p>Se você somar o valor de todas as plataformas hoje, você gasta facilmente mais de R$ 150 por mês. E o pior: quando você quer ver um filme específico, descobre que ele está em outra plataforma que você não assina. O CineFlick veio para acabar com essa palhaçada. Uma única assinatura, entretenimento infinito.</p>
+        </div>
+    </section>
+
+    <!-- 3. BENEFÍCIOS -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title">Por que escolher o CineFlick?</h2>
+            <div class="grid">
+                <div class="card">
+                    <i class="fas fa-film"></i>
+                    <h3>Catálogo Gigante</h3>
+                    <p>Milhares de filmes e séries. Os lançamentos do cinema chegam aqui primeiro com qualidade Full HD e 4K.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-futbol"></i>
+                    <h3>Futebol e Canais Ao Vivo</h3>
+                    <p>Não perca nenhum jogo do seu time. Premiere, ESPN, canais abertos e fechados sem travar na hora do gol.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-tv"></i>
+                    <h3>Compatibilidade Total</h3>
+                    <p>Funciona perfeitamente na sua Smart TV, TV Box, celular Android ou iOS, Notebook e Tablet.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Anti-Travamento</h3>
+                    <p>Servidores de última geração otimizados para rodar de forma lisa, mesmo em conexões de internet comuns.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. COMO FUNCIONA -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">É muito fácil usar:</h2>
+            <div class="steps-grid">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <h3>Você escolhe o plano</h3>
+                    <p>Selecione a assinatura promocional que melhor atende sua família.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <h3>Receba o Acesso</h3>
+                    <p>O envio dos dados de configuração é imediato por e-mail ou WhatsApp.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <h3>Dê o Play!</h3>
+                    <p>Siga nosso tutorial de 2 minutos, relaxe e curta o cinema em casa.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. OFERTA -->
+    <section class="pricing" id="planos">
+        <div class="container">
+            <h2 class="section-title">Aproveite a Oferta de Lançamento</h2>
+            <div class="price-box">
+                <p class="old-price">De R$ 97,00 por apenas</p>
+                <p class="new-price-sub">Até 12x de</p>
+                <div class="price-huge">R$ <span>4,95</span></div>
+                <p>ou R$ 49,90 à vista no PIX</p>
+                <br>
+                <!-- Insira seu link de afiliado no href abaixo -->
+                <a href="SEU_LINK_DE_AFILIADO_AQUI" class="cta-btn" style="font-size: 1.1rem;">GARANTIR MINHA VAGA COM DESCONTO</a>
+                <span class="cta-subtext" style="color: #ffaa00;"><i class="fas fa-exclamation-triangle"></i> Restam poucas vagas no servidor promocional</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. GARANTIA -->
+    <section class="guarantee">
+        <div class="container">
+            <div class="guarantee-box">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <h3>Garantia Blindada de 7 Dias</h3>
+                    <p>Nós confiamos tanto na estabilidade do nosso sinal que te damos risco zero. Se em até 7 dias você achar que o produto não cumpre o prometido, devolvemos 100% do seu dinheiro de forma imediata.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">Preciso de antenas para funcionar? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Não! O CineFlick funciona 100% via internet através do aplicativo dedicado. Não precisa quebrar parede ou instalar antenas externas.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Posso usar em mais de um aparelho? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Sim! Você pode instalar em múltiplos dispositivos (TV, celular, computador), contanto que assista respeitando o limite de telas simultâneas do seu plano.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Como vou receber o meu acesso? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Logo após a confirmação da compra pelo gateway de pagamento, o seu login, senha e o passo a passo em vídeo são enviados direto no seu e-mail e WhatsApp cadastrados.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">O suporte está incluso? <i class="fas fa-chevron-down"></i></div>
+                <div class="faq-answer">Com certeza! Temos uma equipe de suporte em horário comercial pronta para te auxiliar na instalação e tirar qualquer dúvida via WhatsApp.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SCRIPTS DE ANIMAÇÃO -->
+    <script>
+        /* Inicializando as animações de rolagem (ScrollReveal) */
+        ScrollReveal().reveal('.hero h1, .hero p, .video-container', {
+            delay: 200,
+            distance: '40px',
+            origin: 'bottom',
+            duration: 1000
+        });
+
+        ScrollReveal().reveal('.card', {
+            delay: 150,
+            distance: '50px',
+            origin: 'bottom',
+            duration: 800,
+            interval: 100 /* Faz um efeito cascata nos cards */
+        });
+
+        ScrollReveal().reveal('.step', {
+            delay: 200,
+            distance: '30px',
+            origin: 'left',
+            duration: 800,
+            interval: 150
+        });
+
+        ScrollReveal().reveal('.price-box', {
+            delay: 200,
+            scale: 0.9,
+            duration: 1000
+        });
+
+        /* Lógica de abrir/fechar as perguntas frequentes (FAQ) */
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
